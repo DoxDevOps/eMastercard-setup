@@ -4,6 +4,8 @@ import platform
 import subprocess
 import os
 from fabric import Connection
+from dotenv import load_dotenv
+load_dotenv()
 
 """ 
 * get data from Xi
@@ -65,7 +67,7 @@ for site_id in cluster['site']:
             
             version = msg.format(result).strip()
             
-            api_version = "v4.11.0"
+            api_version = "v4.11.9"
             
             if api_version == version:
                 msgx = "Hi there,\n\nDeployment of API to " + version + " for " + site['name'] + " completed succesfully.\n\nThanks!\nEGPAF HIS."
@@ -76,14 +78,11 @@ for site_id in cluster['site']:
             for recipient in recipients:
                 msg = "Hi there,\n\nDeployment of API to " + version + " for " + site['name'] + " completed succesfully.\n\nThanks!\nEGPAF HIS."
                 params = {
-                    "tenant_id": "12345",
+                    "api_key": os.getenv('API_KEY'),
                     "recipient": recipient,
-                    "message": msgx,
-                    "message_category": "signup",
-                    "brand_name": "EGPAF-HIS",    
-                    "type": "internal"
+                    "message": msgx
                 }
-                alert("http://ec2-52-14-138-182.us-east-2.compute.amazonaws.com:56733/v1/sms/send", params)
+                alert("http://sms-api.hismalawi.org/v1/sms/send", params)
 
             # close the while loop
             count = 3
@@ -95,16 +94,14 @@ for site_id in cluster['site']:
             # make sure we are sending the alert at the last pint attempt
             if count == 3:
                 for recipient in recipients:
-                    msg = "Hi there,\n\nDeployment of API to V4.11.0 for " + site['name'] + " failed to complete after several connection attempts.\n\nThanks!\nEGPAF HIS."
+                    
+                    msg = "Hi there,\n\nDeployment of API to V4.11.9 for " + site['name'] + " failed to complete after several connection attempts.\n\nThanks!\nEGPAF HIS."
                     params = {
-                        "tenant_id": "12345",
+                        "api_key": os.getenv('API_KEY'),
                         "recipient": recipient,
-                        "message": msg,
-                        "message_category": "signup",
-                        "brand_name": "EGPAF-HIS",    
-                        "type": "internal"
+                        "message": msg
                     }
-                    alert("http://ec2-52-14-138-182.us-east-2.compute.amazonaws.com:56733/v1/sms/send", params)
+                    alert("http://sms-api.hismalawi.org/v1/sms/send", params)
 
         
 
