@@ -67,7 +67,7 @@ for site_id in cluster['site']:
             
             version = msg.format(result).strip()
             
-            api_version = "v4.11.9"
+            api_version = "v4.11.11"
             
             if api_version == version:
                 msgx = "Hi there,\n\nDeployment of API to " + version + " for " + site['name'] + " completed succesfully.\n\nThanks!\nEGPAF HIS."
@@ -95,7 +95,7 @@ for site_id in cluster['site']:
             if count == 3:
                 for recipient in recipients:
                     
-                    msg = "Hi there,\n\nDeployment of API to V4.11.9 for " + site['name'] + " failed to complete after several connection attempts.\n\nThanks!\nEGPAF HIS."
+                    msg = "Hi there,\n\nDeployment of API to V4.11.11 for " + site['name'] + " failed to complete after several connection attempts.\n\nThanks!\nEGPAF HIS."
                     params = {
                         "api_key": os.getenv('API_KEY'),
                         "recipient": recipient,
