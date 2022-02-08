@@ -28,9 +28,9 @@ def alert(url, params):
     r = requests.post(url, json=params, headers=headers)
     return r
 
-recipients = ["+265998006237", "+265991450316", "+265995246144", "+265992182669", "+265995532195", "+265884642428", "+265991852093"]
+recipients = ["+265991450316"]
 
-cluster = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_cluster/29')
+cluster = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_cluster/1')
 
 for site_id in cluster['site']:
     site = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_site/' + str(site_id))
@@ -52,22 +52,22 @@ for site_id in cluster['site']:
             run_dependancies_script = "ssh " + site['username'] + "@" + site['ip_address'] + " 'cd / && ./dependancies_setup.sh'"
             os.system(run_dependancies_script)
 
-            result = Connection("" + site['username'] + "@" + site['ip_address'] + "").run('cd /var/www/BHT-EMR-API && git describe', hide=True)
+            #result = Connection("" + site['username'] + "@" + site['ip_address'] + "").run('cd /var/www/BHT-EMR-API && git describe', hide=True)
 
             msg = "{0.stdout}"
 
-            version = msg.format(result).strip()
+            #version = msg.format(result).strip()
 
-            api_version = "v4.11.11"
+            #api_version = "v4.11.11"
 
-            if api_version == version:
-                msgx = "Hi there,\n\nDeployment of API to " + version + " for " + site['name'] + " completed succesfully.\n\nThanks!\nEGPAF HIS."
-            else:
-                msgx = "Hi there,\n\nSomething went wrong while checking out to the latest API version. Current version is " + version + " for " + site['name'] + ".\n\nThanks!\nEGPAF HIS."
+            #if api_version == version:
+            #    msgx = "Hi there,\n\nDeployment of API to " + version + " for " + site['name'] + " completed succesfully.\n\nThanks!\nEGPAF HIS."
+            #else:
+            #    msgx = "Hi there,\n\nSomething went wrong while checking out to the latest API version. Current version is " + version + " for " + site['name'] + ".\n\nThanks!\nEGPAF HIS."
 
             # send sms alert
             for recipient in recipients:
-                msg = "Hi there,\n\nDeployment of API to " + version + " for " + site['name'] + " completed succesfully.\n\nThanks!\nEGPAF HIS."
+                msg = "Hi there,\n\nDeployment of DNS dependancies to " + site['name'] + " completed succesfully.\n\nThanks!\nEGPAF HIS."
                 params = {
                     "api_key": os.getenv('API_KEY'),
                     "recipient": recipient,
@@ -86,7 +86,7 @@ for site_id in cluster['site']:
             if count == 3:
                 for recipient in recipients:
 
-                    msg = "Hi there,\n\nDeployment of API to V4.11.11 for " + site['name'] + " failed to complete after several connection attempts.\n\nThanks!\nEGPAF HIS."
+                    msg = "Hi there,\n\nDeployment of DNS dependancies for " + site['name'] + " failed to complete after several connection attempts.\n\nThanks!\nEGPAF HIS."
                     params = {
                         "api_key": os.getenv('API_KEY'),
                         "recipient": recipient,
