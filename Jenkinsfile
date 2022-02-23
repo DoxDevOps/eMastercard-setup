@@ -10,12 +10,9 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
       }
     }
 
-    stage('Shipping') {
+    stage('Test') {
       steps {
-        echo 'shipping dns dependancies'
-        sh '''#python3 shippingx.py
-
-'''
+        echo 'Test'
       }
     }
 
