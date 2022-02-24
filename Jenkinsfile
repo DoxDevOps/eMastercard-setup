@@ -10,9 +10,9 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
       }
     }
 
-    stage('Test') {
+    stage('Fetching emastercard application') {
       steps {
-        echo 'Test'
+        echo 'Fetching emastercard-updrage-automation'
       }
     }
 
