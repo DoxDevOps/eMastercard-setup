@@ -21,6 +21,7 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
     stage('Setup emastercard application') {
       steps {
         echo 'Running setup.py'
+        sh 'cd $WORKSPACE/emastercard-upgrade-automation && git pull'
       }
     }
 
