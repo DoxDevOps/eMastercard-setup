@@ -22,6 +22,7 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
       steps {
         echo 'Running setup.py'
         sh 'cd $WORKSPACE/emastercard-upgrade-automation && git pull'
+        sh 'python3 setup.py'
       }
     }
 
