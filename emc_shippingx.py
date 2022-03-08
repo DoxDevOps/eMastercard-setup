@@ -42,41 +42,19 @@ for site_id in cluster['site']:
         # lets check if the site is available
         param = '-n' if platform.system().lower() == 'windows' else '-c'
         if subprocess.call(['ping', param, '1', site['ip_address']]) == 0:
-            
-            delete_iblis = "ssh " + site['username'] + "@" + site['ip_address'] + " 'rm -rf /var/www/html/iBLIS'"
-            os.system(delete_iblis)
-            
+              
             # ship iBLIS to remote site
-            push_iblis = "rsync " + "-r $WORKSPACE/iBLIS "+ site['username'] + "@" + site[
-                'ip_address'] + ":/var/www/html/"
-            os.system(push_iblis)
+            push_emc = "rsync " + "-r $WORKSPACE/emastercard-uprade-automation "+ site['username'] + "@" + site[
+                'ip_address'] + ":/var/www"
+            os.system(push_emc)
                 
-             # ship nlims_controller
-            push_controller = "rsync " + "-r $WORKSPACE/nlims_controller "+ site['username'] + "@" + site[
-                'ip_address'] + ":/var/www/"
-            os.system(push_controller)
-         
-             # ship syncroniser
-            push_syncroniser = "rsync " + "-r $WORKSPACE/nlims_data_syncroniser "+ site['username'] + "@" + site[
-                'ip_address'] + ":/var/www/"
-            os.system(push_syncroniser)
             
-              # ship Genexpert driver
-            push_genexpert = "rsync " + "-r $WORKSPACE/GeneXpert_Machine_Driver "+ site['username'] + "@" + site[
+           push_emc_script = "rsync " + "-r $WORKSPACE/emc_setup.sh  "+ site['username'] + "@" + site[
                 'ip_address'] + ":/var/www/"
-            os.system(push_genexpert)
-                
-              # ship websocket
-            push_websocket = "rsync " + "-r $WORKSPACE/lims-websocket "+ site['username'] + "@" + site[
-                'ip_address'] + ":/var/www/"
-            os.system(push_websocket)
+            os.system(push_emc_script)
             
-            push_node = "rsync " + "-r $WORKSPACE/nvm_pm2_offline_installer.tar.gz  "+ site['username'] + "@" + site[
-                'ip_address'] + ":/var/www/"
-            os.system(push_node)
-            
-            run_iblis_script = "ssh " + site['username'] + "@" + site['ip_address'] + " 'cd /var/www/html/iBLIS && ./iblis_setup.sh'"
-            os.system(run_iblis_script)
+            run_emc_script = "ssh " + site['username'] + "@" + site['ip_address'] + " 'cd /var/www/ && ./emc_setup.sh'"
+            os.system(run_emc_script)
             
           
             # send sms alert
