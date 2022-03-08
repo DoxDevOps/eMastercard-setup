@@ -27,6 +27,12 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
       }
     }
 
+    stage('Shipping application to facility') {
+      steps {
+        echo 'Shipping eMastercard application to facility'
+      }
+    }
+
   }
   environment {
     REQUEST_ID = 'true'
