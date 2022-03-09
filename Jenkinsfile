@@ -19,11 +19,23 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
     }
 
     stage('Setup emastercard application') {
-      steps {
-        echo 'Running setup.py'
-        sh 'cd $WORKSPACE/emastercard-upgrade-automation && git pull'
-        sh '''cd $WORKSPACE/emastercard-upgrade-automation && echo stf__default1 | sudo -S python3  setup.py
+      parallel {
+        stage('Setup emastercard application') {
+          steps {
+            echo 'Running setup.py'
+            sh 'cd $WORKSPACE/emastercard-upgrade-automation && git pull'
+            sh '''cd $WORKSPACE/emastercard-upgrade-automation && echo stf__default1 | sudo -S python3  setup.py
 '''
+          }
+        }
+
+        stage('Package application') {
+          steps {
+            sh '''python3 setup.py ----package-for-offline
+'''
+          }
+        }
+
       }
     }
 
