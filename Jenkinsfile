@@ -23,9 +23,6 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
         stage('Setup emastercard application') {
           steps {
             echo 'Running setup.py'
-            sh 'cd $WORKSPACE/emastercard-upgrade-automation && git pull'
-            sh '''cd $WORKSPACE/emastercard-upgrade-automation && echo stf__default1 | sudo -S python3  setup.py
-'''
           }
         }
 
@@ -42,6 +39,7 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
     stage('Shipping application to facility') {
       steps {
         echo 'Shipping eMastercard application to facility'
+        sh 'python3 emc_shippingx.py'
       }
     }
 
