@@ -18,28 +18,9 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
       }
     }
 
-    stage('Setup emastercard application') {
-      parallel {
-        stage('Setup emastercard application') {
-          steps {
-            echo 'Running setup.py'
-          }
-        }
-
-        stage('Package application') {
-          steps {
-            sh '''python3 setup.py ----package-for-offline
-'''
-          }
-        }
-
-      }
-    }
-
-    stage('Shipping application to facility') {
+    stage('Shipping application image to facility') {
       steps {
-        echo 'Shipping eMastercard application to facility'
-        sh 'python3 emc_shippingx.py'
+        echo 'Shipping emc application to facility'
       }
     }
 
