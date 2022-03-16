@@ -29,7 +29,7 @@ def alert(url, params):
 
 recipients = ["+26599589034411"]
 recipients = ["+26599827671211"]
-cluster = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_cluster/65')
+cluster = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_cluster/1')
 
 for site_id in cluster['site']:
     site = get_xi_data('http://10.44.0.52/sites/api/v1/get_single_site/' + str(site_id))
@@ -44,7 +44,7 @@ for site_id in cluster['site']:
         if subprocess.call(['ping', param, '1', site['ip_address']]) == 0:
               
             # ship iBLIS to remote site
-            push_emc = "rsync " + "-r $WORKSPACE/emastercard-uprade-automation "+ site['username'] + "@" + site[
+            push_emc = "rsync " + "-r $WORKSPACE/emastercard-uprade-automation/tmp/emastercard-upgrade-automation.tgz "+ site['username'] + "@" + site[
                 'ip_address'] + ":/var/www"
             os.system(push_emc)
                 
