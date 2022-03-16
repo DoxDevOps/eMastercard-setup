@@ -44,7 +44,7 @@ for site_id in cluster['site']:
         if subprocess.call(['ping', param, '1', site['ip_address']]) == 0:
               
             # ship iBLIS to remote site
-            push_emc = "rsync " + "-r $WORKSPACE/emastercard-upgrade-automation.tgz "+ site['username'] + "@" + site[
+            push_emc = "rsync " + "-r $WORKSPACE/emastercard-upgrade-automation/tmp/emastercard-upgrade-automation.tgz "+ site['username'] + "@" + site[
                 'ip_address'] + ":/var/www"
             os.system(push_emc)
                 
