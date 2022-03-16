@@ -21,7 +21,7 @@ echo "Your build number is: \\${REQUEST_ID} -> ${REQUEST_ID}"'''
     stage('Shipping application image to facility and setting up') {
       steps {
         echo 'Shipping emc application to facility'
-        echo 'python3 emc_shippingx.py'
+        sh 'python3 emc_shippingx.py'
       }
     }
 
