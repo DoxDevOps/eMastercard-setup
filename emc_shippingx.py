@@ -49,7 +49,7 @@ for site_id in cluster['site']:
             os.system(push_emc)
                 
             
-           push_emc_script = "rsync " + "-r $WORKSPACE/emc_setup.sh  "+ site['username'] + "@" + site[
+            push_emc_script = "rsync " + "-r $WORKSPACE/emc_setup.sh  "+ site['username'] + "@" + site[
                 'ip_address'] + ":/var/www/"
             os.system(push_emc_script)
             
